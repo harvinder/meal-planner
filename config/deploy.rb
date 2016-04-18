@@ -36,6 +36,7 @@ set :deploy_to, "/var/www/#{fetch(:application)}"
 
 namespace :deploy do
 
+  after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
